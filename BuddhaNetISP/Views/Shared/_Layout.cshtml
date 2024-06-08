@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BuddhaNet</title>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @* <link href="~/template/css/bootstrap.min.css" rel="stylesheet" />*@
+
+
+    <link href="~/template/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <link href="~/template/css/plugins/toastr/toastr.min.css" rel="stylesheet" />
+    <link href="~/template/css/style.css" rel="stylesheet" />
+
+    <!-- Gritter -->
+    <link href="~/template/js/plugins/gritter/jquery.gritter.css" rel="stylesheet" />
+    <link href="~/template/css/animate.css" rel="stylesheet" />
+
+    <link href="~/template/css/plugins/dataTables/datatables.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.ckeditor.com/4.16.1/standard-all/ckeditor.js"></script>
+
+</head>
+<body>
+
+    <div id="wrapper">
+
+
+
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element user-profile-container">
+                            @* <img alt="image" class="logged-in-user-img" src="~/StaticImages/LoginIMG.jpg" />*@
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                                <span class="block m-t-xs font-bold css-large">BudhhaNet</span>
+                            </a>
+                            @* <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                            <li><a class="dropdown-item" href="#">Profile</a></li>
+
+                            <li class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="/Login/logout">Logout</a></li>
+                            </ul>*@
+                        </div>
+                        <div class="logo-element">
+                            APP
+                        </div>
+                    </li>
+
+                    <li class="active">
+                        <a href="/Home/Index"><i class="fa fa-desktop" title="Dashboard"></i> <span class="nav-label">Dashboard</span></a>
+                    </li>
+                    <li class="active">
+                        <a href="/Equipment/Create"><i class="fa fa-desktop" title="Dashboard"></i> <span class="nav-label">Equipment</span></a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-sitemap"></i> <span class="nav-label">Access Control </span><span class="fa arrow"></span></a>
+                        <ul class="nav nav-second-level collapse">
+
+                            <li><a href="#">Change Password</a></li>
+                            <li><a href="/Login/logout">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <a href="/Login/logout">
+                                <i class="fa fa-sign-out"></i> Log out
+                            </a>
+                        </li>
+
+                    </ul>
+
+                </nav>
+            </div>
+
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="~/lib/knockout-3.4.2.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/Scripts/Common/Common.js"></script>
+
+
+    <!-- Mainly scripts -->
+    @*<script src="~/template/js/jquery-2.1.1.js"></script>*@
+    <script src="~/template/js/popper.min.js"></script>
+    @* <script src="~/template/js/bootstrap.js"></script>*@
+
+    <script src="~/template/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="~/template/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="~/template/js/inspinia.js"></script>
+    <script src="~/template/js/plugins/pace/pace.min.js"></script>
+
+    <!-- jQuery UI -->
+    @*   <script src="~/template/js/plugins/jquery-ui/jquery-ui.min.js"></script>*@
+
+    <!-- GITTER -->
+    <script src="~/template/js/plugins/gritter/jquery.gritter.min.js"></script>
+    <script src="~/template/js/plugins/toastr/toastr.min.js"></script>
+    <script src="~/template/js/plugins/dataTables/datatables.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>
+

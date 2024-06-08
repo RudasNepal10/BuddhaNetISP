@@ -1,0 +1,62 @@
+﻿@model IEnumerable<BuddhaNetISP.Models.EquipementModel>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Equipment List</h5>
+                    <a href="/Equipment/Create" class="btn btn-w-m btn-outline-primary m-l m-b-xs">
+                        <i class="fa fa-plus"></i> Add New
+                    </a>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover tbl-datatable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    @* <th>Equipment ID</th> *@
+                                    <th>Serial Number</th>
+                                    <th>Equipment Type</th>
+                                    <th>Make</th>
+                                    <th>Is Under License</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int sn = 1;
+                                    foreach (var equipment in Model)
+                                    {
+                                        <tr class="gradeX">
+                                            <td>
+                                                @sn
+                                                <input type="hidden" class="id" value="@equipment.equipmentid" />
+                                            </td>
+                                            @*<td class="center">@equipment.equipmentid</td> *@
+                                            <td class="center">@equipment.serialnumber</td>
+                                            <td class="center">@equipment.equipmenttype</td>
+                                            <td class="center">@equipment.make</td>
+                                            <td class="center">@equipment.LiscenceStatus</td>
+                                            <td class="center">
+                                                <a href="/Equipment/Update?id=@equipment.equipmentid" class="btn btn-outline-primary">Edit</a>
+                                                <a href="/Equipment/Delete?serialnumber=@equipment.serialnumber" class="btn btn-outline-primary">Delete</a>
+                                            </td>
+                                        </tr>
+                                        sn++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

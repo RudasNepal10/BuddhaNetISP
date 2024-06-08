@@ -1,0 +1,80 @@
+﻿@model BuddhaNetISP.Models.EquipementModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Update Equipment</title>
+</head>
+
+<body>
+    <div class="Category"></div>
+    
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <a href="/Equipment/List" class="btn btn-w-m btn-outline-primary m-l m-b-xs">
+                            <i class="fa fa-plus"></i> Back to list
+                        </a>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                        <h1 class="card-title font-bold">Update Equipment</h1>
+                    </div>
+                    <div class="ibox-content">
+                        @using (Html.BeginForm("Update", "Equipment", FormMethod.Post, new { @class = "row g-3" }))
+                        {
+                            @Html.HiddenFor(e => e.serialnumber)
+
+                            <div class="col-md-4" shidden>
+                                <label for="SerialNumber" class="form-label">Equipment ID</label>
+                                @Html.TextBoxFor(e => e.equipmentid, new { type = "text", placeholder = "equipmentID", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.equipmentid, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="EquipmentType" class="form-label">Equipment Type</label>
+                                @Html.TextBoxFor(e => e.equipmenttype, new { type = "text", placeholder = "Equipment Type", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.equipmenttype, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="Make" class="form-label">Make</label>
+                                @Html.TextBoxFor(e => e.make, new { type = "text", placeholder = "Make", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.make, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="IsUnderLicense" class="form-label" style="margin-top: 40px;">Is Under License</label>
+                                @Html.CheckBoxFor(e => e.isunderlicense, new { @class = "form-check-input", style = "margin-top: 43px;" })
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit">Update</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+</body>
+
+</html>
