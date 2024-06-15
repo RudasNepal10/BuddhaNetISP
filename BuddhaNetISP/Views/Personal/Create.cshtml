@@ -1,0 +1,77 @@
+﻿@model BuddhaNetISP.Models.Personal
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Add Personal</title>
+</head>
+
+<body>
+    <div class="Category"></div>
+    <!-- End Page Title -->
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <a href="/Personal/List" class="btn btn-w-m btn-outline-primary m-l m-b-xs">
+                            <i class="fa fa-plus"></i> Back to list
+                        </a>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                        <h1 class="card-title font-bold">Add Personal</h1>
+                    </div>
+                    <div class="ibox-content">
+                        @using (Html.BeginForm("Create", "Personal", FormMethod.Post, new { @class = "row g-3" }))
+                        {
+                            @* <div class="col-md-4">
+                                <label for="Name" class="form-label">Name</label>
+                                @Html.TextBoxFor(e => e.personnelid, new { type = "text", placeholder = "Name", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e., null, new { @class = "text-danger" })
+                                </div>
+                            </div> *@
+
+                            <div class="col-md-4">
+                                <label for="Name" class="form-label">Name</label>
+                                @Html.TextBoxFor(e => e.name, new { type = "text", placeholder = "Name", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.name, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="JobTitle" class="form-label">Job Title</label>
+                                @Html.TextBoxFor(e => e.jobtitle, new { type = "text", placeholder = "Job Title", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.jobtitle, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="Department" class="form-label">Department</label>
+                                @Html.TextBoxFor(e => e.department, new { type = "text", placeholder = "Department", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.department, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit">Add</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+</body>
+
+</html>

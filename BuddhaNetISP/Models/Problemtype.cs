@@ -1,9 +1,9 @@
 ﻿namespace BuddhaNetISP.Models
 {
-    public class Problemtype:BaseClass
+    public class Problemtype
     {
-     public int Problemtypeid {  get; set; } 
-     public string Typename {  get; set; }  
-     public int ParentproblemTypeId {  get; set; }  
+     public int problemtypeid {  get; set; } 
+     public string typename {  get; set; }  
+     public int parentproblemtypeid {  get; set; }  
     }
 }

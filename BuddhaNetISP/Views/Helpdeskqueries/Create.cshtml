@@ -1,0 +1,144 @@
+﻿@model BuddhaNetISP.Models.Helpdeskqueries
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Add Help Desk Query</title>
+</head>
+<body>
+    <div class="Category"></div>
+    <!-- End Page Title -->
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <a href="/Helpdeskqueries/List" class="btn btn-w-m btn-outline-primary m-l m-b-xs">
+                            <i class="fa fa-plus"></i> Back to list
+                        </a>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                        <h1 class="card-title font-bold">Add Help Desk Query</h1>
+                    </div>
+                    <div class="ibox-content">
+                        @using (Html.BeginForm("Create", "Helpdeskqueries", FormMethod.Post, new { @class = "row g-3" }))
+                        {
+                            @* <div class="col-md-4">
+                                <label for="QueryId" class="form-label">Query ID</label>
+                                @Html.TextBoxFor(e => e.QueryId, new { type = "text", placeholder = "Query ID", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.QueryId, null, new { @class = "text-danger" })
+                                </div>
+                            </div> *@
+
+                            <div class="col-md-4">
+                                <label class="form-label">Caller</label>
+                                @Html.DropDownList("callerid", ViewBag.Personal as SelectList, "-- Select --", new { @Class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(a => a.CallerId, null, new { @Class = "text-danger" })
+                            </div> 
+
+
+                            <div class="col-md-4">
+                                <label class="form-label">operator</label>
+                                @Html.DropDownList("operatorid", ViewBag.Operators as SelectList, "-- Select --", new { @Class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(a => a.OperatorId, null, new { @Class = "text-danger" })
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label for="CallTime" class="form-label">Call Time</label>
+                                @Html.TextBoxFor(e => e.CallTime, new { type = "datetime-local", placeholder = "Call Time", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.CallTime, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Equipment</label>
+                                @Html.DropDownList("Equipmentid", ViewBag.equipment as SelectList, "-- Select --", new { @Class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(a => a.EquipmentId, null, new { @Class = "text-danger" })
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label class="form-label">Software</label>
+                                @Html.DropDownList("SoftwareId", ViewBag.Software as SelectList, "-- Select --", new { @Class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(a => a.SoftwareId, null, new { @Class = "text-danger" })
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label class="form-label">ProblemType</label>
+                                @Html.DropDownList("ProblemTypeId", ViewBag.ProblemTypes as SelectList, "-- Select --", new { @Class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(a => a.ProblemTypeId, null, new { @Class = "text-danger" })
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="description" class="form-label">Description</label>
+                                @Html.TextBoxFor(e => e.Description, new { type = "text", placeholder = "Description", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.Description, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="ResolutionTime" class="form-label">ResolutionTime</label>
+                                @Html.TextBoxFor(e => e.ResolutionTime, new { type = "datetime-local", placeholder = "ResolutionTime", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.ResolutionTime, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="ResolutionDetails" class="form-label">Details</label>
+                                @Html.TextBoxFor(e => e.ResolutionDetails, new { type = "text", placeholder = "ResolutionDetails", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.ResolutionDetails, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Specialist</label>
+                                @Html.DropDownList("Specialistid", ViewBag.Specialist as SelectList, "-- Select --", new { @Class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(a => a.SpecialistId, null, new { @Class = "text-danger" })
+                            </div>
+
+
+                            <div class="col-md-4">
+                                <label for="CreateDate" class="form-label">CreateDate</label>
+                                @Html.TextBoxFor(e => e.CreateDate, new { type = "datetime-local", placeholder = "ResolutionTime", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.CreateDate, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label for="UpdateDate" class="form-label">UpdateDate</label>
+                                @Html.TextBoxFor(e => e.UpdateDate, new { type = "datetime-local", placeholder = "UpdateDate", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.UpdateDate, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <label for="IsResolved" class="form-label" style="margin-top: 40px;">IsResolved</label>
+                                @Html.CheckBoxFor(e => e.IsResolved, new { @class = "form-check-input", style = "margin-top: 43px;" })
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit">Add</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+</body>
+</html>

@@ -1,0 +1,78 @@
+﻿@model IEnumerable<BuddhaNetISP.Models.Helpdeskqueries>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <h5>Help Desk Query List</h5>
+                    <a href="/Helpdeskqueries/Create" class="btn btn-w-m btn-outline-primary m-l m-b-xs">
+                        <i class="fa fa-plus"></i> Add New
+                    </a>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover tbl-datatable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    @* <th>Query</th> *@
+                                    <th>Caller ID</th>
+                                    <th>Operator ID</th>
+                                    <th>Call Time</th>
+                                    <th>EquipmentId</th>
+                                    <th>Software</th>
+                                    <th>Problem Type</th>
+                                    <th>Description</th>
+                                    <th>Is Resolved</th>
+                                    <th>ResolutionTime</th>
+                                    <th>Resolutiondetails</th>
+                                    <th>Specialist</th>
+                                    <th>Createdate</th>
+                                    <th>updatedate</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int sn = 1;
+                                    foreach (var helpdeskqueries in Model)
+                                    {
+                                        <tr class="gradeX">
+                                            <td>
+                                                @sn
+                                                <input type="hidden" class="id" value="@helpdeskqueries.QueryId" />
+                                            </td>
+                                            <td class="center">@helpdeskqueries.CallerId</td>
+                                            <td class="center">@helpdeskqueries.OperatorId</td>
+                                            <td class="center">@helpdeskqueries.CallTime</td>
+                                            <td class="center">@helpdeskqueries.EquipmentId</td>
+                                            <td class="center">@helpdeskqueries.SoftwareId</td>
+                                            <td class="center">@helpdeskqueries.ProblemTypeId</td>
+                                            <td class="center">@helpdeskqueries.Description</td>
+                                            <td class="center">@helpdeskqueries.IsResolved</td>
+                                            <td class="center">@helpdeskqueries.ResolutionTime</td>
+                                            <td class="center">@helpdeskqueries.ResolutionDetails</td>
+                                            <td class="center">@helpdeskqueries.SpecialistId</td>
+                                            <td class="center">@helpdeskqueries.CreateDate</td>
+                                            <td class="center">@helpdeskqueries.UpdateDate</td>
+                                            <td class="center">
+                                                <a href="/Helpdeskqueries/Delete?queryId=@helpdeskqueries.QueryId" class="btn btn-outline-primary">Delete</a>
+                                            </td>
+                                        </tr>
+                                        sn++;
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

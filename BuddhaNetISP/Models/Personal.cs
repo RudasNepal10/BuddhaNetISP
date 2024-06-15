@@ -1,8 +1,8 @@
 ﻿namespace BuddhaNetISP.Models
 {
-    public class Personal:BaseClass
+    public class Personal
     {
-     public int personalID {  get; set; }   
+     public int personnelid {  get; set; }   
      public string name { get; set; }
      public string jobtitle {  get; set; }  
      public string department {  get; set; }    

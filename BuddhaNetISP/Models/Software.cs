@@ -1,11 +1,12 @@
 ﻿namespace BuddhaNetISP.Models
 {
-    public class Software:BaseClass
+    public class Software
     {
-     public int Softwareid {  get; set; }   
-     public string Softwarename { get; set;}
-     public string Softwareversion { get; set; } 
-     public bool isunderlicense {  get; set; }  
+     public int softwareid {  get; set; }   
+     public string softwarename { get; set;}
+     public string softwareversion { get; set; } 
+     public bool isunderlicense {  get; set; }
+     public string LiscenceStatus { get; set; }
 
     }
 }

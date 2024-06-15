@@ -1,0 +1,61 @@
+﻿@model BuddhaNetISP.Models.Helpdeskoperator
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Add Help Desk Operator</title>
+</head>
+
+<body>
+    <div class="Category"></div>
+    <!-- End Page Title -->
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <a href="/Helpdesk/List" class="btn btn-w-m btn-outline-primary m-l m-b-xs">
+                            <i class="fa fa-plus"></i> Back to list
+                        </a>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                        <h1 class="card-title font-bold">Add Help Desk Operator</h1>
+                    </div>
+                    <div class="ibox-content">
+                        @using (Html.BeginForm("Create", "Helpdesk", FormMethod.Post, new { @class = "row g-3" }))
+                        {
+                            @* <div class="col-md-4">
+                                <label for="OperatorId" class="form-label">Operator ID</label>
+                                @Html.TextBoxFor(e => e.operatorid, new { type = "text", placeholder = "ID", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.operatorid, null, new { @class = "text-danger" })
+                                </div>
+                            </div> *@
+
+                            <div class="col-md-4">
+                                <label for="Name" class="form-label">Name</label>
+                                @Html.TextBoxFor(e => e.name, new { type = "text", placeholder = "Name", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.name, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit">Add</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+</body>
+
+</html>

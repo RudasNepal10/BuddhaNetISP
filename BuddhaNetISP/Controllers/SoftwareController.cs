@@ -1,33 +1,31 @@
 ﻿using BuddhaNetISP.DTO;
-using BuddhaNetISP.Implementation;
 using BuddhaNetISP.Interface;
 using BuddhaNetISP.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace BuddhaNetISP.Controllers
 {
 
     [Authorize]
-    public class EquipmentController : Controller
+    public class SoftwareController : Controller
     {
-        private readonly IEquipmenrRepo _equipmenrRepo;
-        public EquipmentController(IEquipmenrRepo equipmenrRepo)
+        private readonly ISoftwareRepo _softwareRepo;
+        public SoftwareController(ISoftwareRepo softwareRepo)
         {
-            _equipmenrRepo = equipmenrRepo;
+            _softwareRepo = softwareRepo;   
         }
-
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
-        public IActionResult Create(EquipmentDTO equipmentDTO)
+        public IActionResult Create(SoftwareDTO softwareDTO)
         {
             if (ModelState.IsValid)
             {
-                var response = _equipmenrRepo.SaveEquipment(equipmentDTO);
+                var response = _softwareRepo.SaveSoftware(softwareDTO);
                 if (response.IsSuccess)
                 {
                     return RedirectToAction("List");
@@ -37,38 +35,39 @@ namespace BuddhaNetISP.Controllers
                     ModelState.AddModelError(string.Empty, response.Message);
                 }
             }
-            return View(equipmentDTO);
+            return View(softwareDTO);
         }
         public IActionResult List()
         {
-            var equipmentList = _equipmenrRepo.GetAllEquipments();
-            if (equipmentList.IsSuccess)
+            var softwareList = _softwareRepo.GetAllSoftware();
+            if (softwareList.IsSuccess)
             {
-                List<EquipementModel> finalList = equipmentList.ResponseData as List<EquipementModel>;
-                foreach (var item in finalList) {
+                List<Software> finalList = softwareList.ResponseData as List<Software>;
+                foreach (var item in finalList)
+                {
                     item.LiscenceStatus = item.isunderlicense ? "Has Liscence" : "No Liscence";
+                    
                 }
-
                 return View(finalList);
             }
-            else 
+            else
             {
-                return View(new List<EquipmentDTO>());
+                return View(new List<SoftwareDTO>());
             }
-           
         }
         public IActionResult Update(int id)
         {
-            var datafromId= _equipmenrRepo.GetEquipmentById(id);
-            var toupdatedata = datafromId.ResponseData as EquipementModel;
-            return View(toupdatedata);
+            var dataFromId = _softwareRepo.GetSoftwareById(id);
+            var toUpdateData = dataFromId.ResponseData as Software;
+            return View(toUpdateData);
         }
+
         [HttpPost]
-        public IActionResult Update(int id, EquipmentDTO equipmentDTO)
+        public IActionResult Update(int id, SoftwareDTO softwareDTO)
         {
             if (ModelState.IsValid)
             {
-                var response = _equipmenrRepo.UpdateEquipment(equipmentDTO);
+                var response = _softwareRepo.UpdateSoftware(softwareDTO);
                 if (response.IsSuccess)
                 {
                     return RedirectToAction("List");
@@ -78,13 +77,15 @@ namespace BuddhaNetISP.Controllers
                     ModelState.AddModelError(string.Empty, response.Message);
                 }
             }
-            return View(equipmentDTO);
+            return View(softwareDTO);
         }
-        public IActionResult Delete(string serialnumber) 
+        public IActionResult Delete(int softwareid) 
         { 
-         _equipmenrRepo.DeleteEquipment(serialnumber);
-           return RedirectToAction("List");
+         _softwareRepo.DeleteSoftware(softwareid);
+            return RedirectToAction("List");
+        
         }
+
+
     }
 }
-

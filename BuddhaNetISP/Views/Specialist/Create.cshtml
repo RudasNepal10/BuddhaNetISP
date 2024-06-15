@@ -1,0 +1,60 @@
+﻿@model BuddhaNetISP.Models.Specialist
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Add Specialist</title>
+</head>
+
+<body>
+    <div class="Category"></div>
+    <!-- End Page Title -->
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox">
+                    <div class="ibox-title">
+                        <a href="/Specialist/List" class="btn btn-w-m btn-outline-primary m-l m-b-xs">
+                            <i class="fa fa-plus"></i> Back to list
+                        </a>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                        <h1 class="card-title font-bold">Add Specialist</h1>
+                    </div>
+                    <div class="ibox-content">
+                        @using (Html.BeginForm("Create", "Specialist", FormMethod.Post, new { @class = "row g-3" }))
+                        {
+                            <div class="col-md-4">
+                                <label for="SpecialistName" class="form-label">Specialist Name</label>
+                                @Html.TextBoxFor(e => e.specialistname, new { type = "text", placeholder = "Specialist Name", @class = "form-control", required = "required" })
+                                <div class="invalid-feedback">
+                                    @Html.ValidationMessageFor(e => e.specialistname, null, new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label">Expertiseares</label>
+                                @Html.DropDownList("expertisearea", ViewBag.helpdeskoperatorslist as SelectList, "-- Select --", new { @Class = "form-control", required = "required" })
+                                @Html.ValidationMessageFor(a => a.expertisearea, null, new { @Class = "text-danger" })
+                            </div>
+
+                            <div class="col-12">
+                                <button class="btn btn-primary" type="submit">Add</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+</body>
+
+</html>

@@ -1,26 +1,20 @@
-﻿
-using Npgsql;
-using System;
-using System.Collections.Generic;
-using System.Data;
-using BuddhaNetISP.DTO;
+﻿using BuddhaNetISP.DTO;
+using BuddhaNetISP.Helpers;
 using BuddhaNetISP.Interface;
 using BuddhaNetISP.Models;
-using BuddhaNetISP.Helpers;
 using Microsoft.Extensions.Options;
+using Npgsql;
 
 namespace BuddhaNetISP.Implementation
 {
-    public class EquipmentRepo : IEquipmenrRepo
+    public class PersonalRepo :IPersonalRepo
     {
         private readonly IOptions<ConnectionString> _connectionString;
-
-        public EquipmentRepo(IOptions<ConnectionString> connectionString)
+        public PersonalRepo(IOptions<ConnectionString> connectionstring)
         {
-            _connectionString = connectionString;
+            _connectionString = connectionstring;   
         }
-
-        public JsonResponse DeleteEquipment(string serialnumber)
+        public JsonResponse DeletePersonal(int personnelid)
         {
             JsonResponse response = new JsonResponse();
 
@@ -30,20 +24,20 @@ namespace BuddhaNetISP.Implementation
                 {
                     connection.Open();
 
-                    using (NpgsqlCommand command = new NpgsqlCommand("DELETE FROM public.equipment WHERE serialnumber = @Serialnumber", connection))
+                    using (NpgsqlCommand command = new NpgsqlCommand("DELETE FROM public.personnel WHERE personnelid = @PersonnelID", connection))
                     {
-                        command.Parameters.AddWithValue("@Serialnumber", NpgsqlTypes.NpgsqlDbType.Varchar, serialnumber);
+                        command.Parameters.AddWithValue("@PersonnelID", NpgsqlTypes.NpgsqlDbType.Integer, personnelid);
 
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
                             response.IsSuccess = true;
-                            response.Message = "Equipment deleted successfully.";
+                            response.Message = "Personal record deleted successfully.";
                         }
                         else
                         {
                             response.IsSuccess = false;
-                            response.Message = "No equipment found with the provided serial number.";
+                            response.Message = "No personal record found with the provided personal ID.";
                         }
                     }
                 }
@@ -56,11 +50,10 @@ namespace BuddhaNetISP.Implementation
 
             return response;
         }
-
-        public JsonResponse GetAllEquipments()
+        public JsonResponse GetAllPersonals()
         {
             JsonResponse response = new JsonResponse();
-            List<EquipementModel> equipments = new List<EquipementModel>();
+            List<Personal> personals = new List<Personal>();
 
             using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString.Value.DBConnection))
             {
@@ -68,44 +61,44 @@ namespace BuddhaNetISP.Implementation
                 {
                     connection.Open();
 
-                    NpgsqlCommand command = new NpgsqlCommand("select * from public.equipment e ", connection);
+                    NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM public.personnel", connection);
 
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
                         {
-                            EquipementModel equipment = new EquipementModel
+                            Personal personal = new Personal
                             {
-                                equipmentid = Convert.ToInt32(reader["EquipmentId"]),
-                                serialnumber = Convert.ToString(reader["SerialNumber"]),
-                                equipmenttype = Convert.ToString(reader["Equipmenttype"]),
-                                make = Convert.ToString(reader["make"]),
-                                isunderlicense = Convert.ToBoolean(reader["isunderlicense"])
-
+                                personnelid = Convert.ToInt32(reader["PersonnelID"]),
+                                name = Convert.ToString(reader["Name"]),
+                                jobtitle = Convert.ToString(reader["JobTitle"]),
+                                department = Convert.ToString(reader["Department"])
                             };
-                            equipments.Add(equipment);
+                            personals.Add(personal);
                         }
                     }
 
                     response.IsSuccess = true;
-                    response.Message = "Equipments retrieved successfully.";
-                    response.ResponseData = equipments;
+                    response.Message = "Personals retrieved successfully.";
+                    response.ResponseData = personals;
                 }
                 catch (Exception ex)
                 {
                     response.IsSuccess = false;
                     response.Message = "An error occurred: " + ex.Message;
                 }
-                finally { connection.Close(); }
+                finally
+                {
+                    connection.Close();
+                }
             }
 
             return response;
         }
-
-        public JsonResponse GetEquipmentById(int equipmentId)
+        public JsonResponse GetPersonalById(int personnelid)
         {
             JsonResponse response = new JsonResponse();
-            EquipementModel equipments = new EquipementModel();
+            Personal personal = new Personal();
 
             using (NpgsqlConnection connection = new NpgsqlConnection(_connectionString.Value.DBConnection))
             {
@@ -113,34 +106,33 @@ namespace BuddhaNetISP.Implementation
                 {
                     connection.Open();
 
-                    NpgsqlCommand command = new NpgsqlCommand("select * from public.equipment  WHERE EquipmentId = @EquipmentId", connection);
-                    command.Parameters.AddWithValue("@EquipmentId", equipmentId);
+                    NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM public.personnel WHERE Personnelid = @personnelid", connection);
+                    command.Parameters.AddWithValue("@personnelid", personnelid);
 
                     using (NpgsqlDataReader reader = command.ExecuteReader())
                     {
                         if (reader.Read())
                         {
-                             equipments = new EquipementModel
+                            personal = new Personal
                             {
-                                equipmentid = Convert.ToInt32(reader["EquipmentId"]),
-                                serialnumber = Convert.ToString(reader["SerialNumber"]),
-                                equipmenttype = Convert.ToString(reader["Equipmenttype"]),
-                                make = Convert.ToString(reader["make"]),
-                                isunderlicense = Convert.ToBoolean(reader["isunderlicense"])
+                                personnelid = Convert.ToInt32(reader["personnelid"]),
+                                name = Convert.ToString(reader["Name"]),
+                                jobtitle = Convert.ToString(reader["JobTitle"]),
+                                department = Convert.ToString(reader["Department"])
                             };
                         }
                     }
 
-                    if (equipments.equipmentid != 0)
+                    if (personal.personnelid !=0)
                     {
                         response.IsSuccess = true;
-                        response.Message = "Equipment found.";
-                        response.ResponseData = equipments;
+                        response.Message = "Personal found.";
+                        response.ResponseData = personal;
                     }
                     else
                     {
                         response.IsSuccess = false;
-                        response.Message = "No equipment found with the provided ID.";
+                        response.Message = "No personal found with the provided ID.";
                     }
                 }
                 catch (Exception ex)
@@ -152,8 +144,7 @@ namespace BuddhaNetISP.Implementation
 
             return response;
         }
-
-        public JsonResponse SaveEquipment(EquipmentDTO dto)
+        public JsonResponse SavePersonal(PersonalDTO dto)
         {
             JsonResponse response = new JsonResponse();
 
@@ -164,31 +155,30 @@ namespace BuddhaNetISP.Implementation
                 {
                     try
                     {
-                        NpgsqlCommand command = new NpgsqlCommand("INSERT INTO public.equipment( serialnumber, equipmenttype, make, isunderlicense)   VALUES(@SerialNumber, @EquipmentType, @Make, @IsUnderLicense);", connection);
+                        NpgsqlCommand command = new NpgsqlCommand("INSERT INTO public.personnel( name, jobtitle, department) VALUES( @Name, @JobTitle, @Department);", connection);
                         var parameters = command.Parameters;
-                        parameters.AddWithValue("@SerialNumber", dto.SerialNumber);
-                        parameters.AddWithValue("@EquipmentType", dto.EquipmentType);
-                        parameters.AddWithValue("@Make", dto.Make);
-                        parameters.AddWithValue("@IsUnderLicense", dto.IsUnderLicense);
+                        //parameters.AddWithValue("@personnelid", dto.personnelid);
+                        parameters.AddWithValue("@Name", dto.name);
+                        parameters.AddWithValue("@JobTitle", dto.jobtitle);
+                        parameters.AddWithValue("@Department", dto.department);
 
-                        var rowAffected = command.ExecuteNonQuery();
+                        var rowsAffected = command.ExecuteNonQuery();
                         transaction.Commit();
                         response.IsSuccess = true;
-                        response.Message = "Equipment saved successfully.";
+                        response.Message = "Personal saved successfully.";
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
                         response.IsSuccess = false;
-                        response.Message = ex.Message;
+                        response.Message = "An error occurred: " + ex.Message;
                     }
                 }
             }
 
             return response;
         }
-
-        public JsonResponse UpdateEquipment(EquipmentDTO dto)
+        public JsonResponse UpdatePersonal(PersonalDTO dto)
         {
             JsonResponse response = new JsonResponse();
 
@@ -199,33 +189,31 @@ namespace BuddhaNetISP.Implementation
                 {
                     try
                     {
-                        NpgsqlCommand command = new NpgsqlCommand("UPDATE public.equipment SET equipmenttype= @EquipmentType , make=@Make, isunderlicense=@IsUnderLicense WHERE equipmentid = @EquipmentID;", connection);
+                        NpgsqlCommand command = new NpgsqlCommand("UPDATE public.personnel SET name = @Name, jobtitle = @JobTitle, department = @Department WHERE personnelid = @PersonnelId;", connection);
                         var parameters = command.Parameters;
-                       // parameters.AddWithValue("@SerialNumber", dto.SerialNumber);
-                        parameters.AddWithValue("@EquipmentType", dto.EquipmentType);
-                        parameters.AddWithValue("@Make", dto.Make);
-                        parameters.AddWithValue("@IsUnderLicense", dto.IsUnderLicense);
-                        parameters.AddWithValue("@EquipmentID", dto.EquipmentID);
+                        //parameters.AddWithValue("@PersonnelId", dto.personnelid);
+                        parameters.AddWithValue("@Name", dto.name);
+                        parameters.AddWithValue("@JobTitle", dto.jobtitle);
+                        parameters.AddWithValue("@Department", dto.department);
 
-                        var rowAffected = command.ExecuteNonQuery();
+                        var rowsAffected = command.ExecuteNonQuery();
                         transaction.Commit();
+
                         response.IsSuccess = true;
-                        response.Message = "Equipment updated successfully.";
+                        response.Message = "Personal updated successfully.";
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
                         response.IsSuccess = false;
-                        response.Message = ex.Message;
+                        response.Message = "An error occurred: " + ex.Message;
                     }
                 }
             }
 
             return response;
         }
-
 
 
     }
 }
-
